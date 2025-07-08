@@ -431,6 +431,8 @@ function serverConsole() {
                     // Create a read stream
                     const readStream = fs.createReadStream(path);
 
+                    readStream.setEncoding('utf8');
+
                     // Create a readline interface
                     const readInterface = readline.createInterface({
                         input: readStream
@@ -444,12 +446,12 @@ function serverConsole() {
                         const row = line.split(";");
                         if (lineNumber > 0) {
                             // error catching
-                            row[0] = removeAccents(row[0].replace("ä", "a?").replace("ö", "o?").replace("ü", "u?").replace('ß', 's?'))
-                            row[1] = removeAccents(row[1].replace("ä", "a?").replace("ö", "o?").replace("ü", "u?").replace('ß', 's?'))
+                            //row[0] = row[0].replace("ä", "a?").replace("ö", "o?").replace("ü", "u?").replace('ß', 's?')
+                            //row[1] = row[1].replace("ä", "a?").replace("ö", "o?").replace("ü", "u?").replace('ß', 's?')
                             if (
                                 row.length < 5 ||
-                                row[0].match(/[^A-Za-z0-9-ÄäÖöÜü?éèêâß ]/u) ||
-                                row[1].match(/[^A-Za-z0-9-ÄäÖöÜü?éèêâß ]/u) ||
+                                row[0].match(/[^A-Za-z0-9-ÄäÖöÜü?éèêâáàß ]/u) ||
+                                row[1].match(/[^A-Za-z0-9-ÄäÖöÜü?éèêâáàß ]/u) ||
                                 !moment(row[2], "DD.MM.yyyy", true).isValid() ||
                                 !row[4].match(/[MWmw]/)
                             ) {
